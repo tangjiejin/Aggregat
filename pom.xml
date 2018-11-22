@@ -14,7 +14,7 @@
     <modules>
         <module>app</module>
         <module>common</module>
-        <module>service</module>
+        <module>producer</module>
     </modules>
 
     <parent>
