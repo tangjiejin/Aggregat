@@ -10,12 +10,20 @@ import java.util.Date;
 @Data
 public class User {
 
-    String name;
+    Long id;
 
-    Integer age;
+    String name;
 
     String photo;
 
     Date birthday;
+
+    String password;
+
+    String phone;
+
+    Date createTime;
+
+    Integer state;
 
 }

@@ -1,10 +1,10 @@
 package com.jaden.app.controller;
 
+import com.jaden.app.service.UserService;
 import com.jaden.common.pojo.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Date;
 
 /**
  * Created by tangjiejin on 2018/11/21
@@ -12,14 +12,13 @@ import java.util.Date;
 @RestController
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/user/login")
-    public User login(String name){
-        User user = new User();
-        user.setName(name);
-        user.setBirthday(new Date());
-        user.setAge(100);
-        user.setPhoto("http://xxxxx.jpg");
-        return user;
+    public User login(String name,String password){
+
+        return userService.login(name,password);
     }
 
 }
