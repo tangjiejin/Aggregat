@@ -15,6 +15,7 @@
         <module>app</module>
         <module>common</module>
         <module>producer</module>
+        <module>consumer</module>
     </modules>
 
     <parent>
