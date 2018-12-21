@@ -1,8 +1,7 @@
 package com.jaden.consumer.controller;
 
-import com.jaden.common.pojo.User;
+import com.jaden.common.pojo.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -17,9 +16,10 @@ public class OrderController {
     RestTemplate restTemplate;
 
     @RequestMapping("/consumer/toLogin")
-    public User toLogin(){
-
-        return restTemplate.getForEntity("http://APP/user/login?name=jaden&password=123",User.class).getBody();
+    public UserInfo toLogin(){
+        String name = "jaden";
+        Integer password = 123;
+        return restTemplate.getForEntity("http://APP/user/login?name={1}&password={2}",UserInfo.class,name,password).getBody();
     }
 
 }

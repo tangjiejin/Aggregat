@@ -28,7 +28,7 @@
 
         <dependency>
             <groupId>com.jaden</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>app</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

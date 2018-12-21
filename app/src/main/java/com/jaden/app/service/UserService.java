@@ -1,9 +1,10 @@
 package com.jaden.app.service;
 
-import com.jaden.app.mapper.UserMapper;
-import com.jaden.common.pojo.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jaden.app.mapper.UserInfoManualMapper;
+import com.jaden.common.pojo.UserInfo;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Created by tangjiejin on 2018/11/27
@@ -11,11 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    @Autowired
-    UserMapper userMapper;
+    @Resource
+    UserInfoManualMapper userInfoManualMapper;
 
-    public User login(String name, String password) {
-
-        return userMapper.login(name,password);
+    public UserInfo login(UserInfo userInfo) {
+        return userInfoManualMapper.login(userInfo);
     }
 }
