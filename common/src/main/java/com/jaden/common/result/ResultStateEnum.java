@@ -33,10 +33,6 @@ public enum ResultStateEnum implements ResultError{
         return code;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
     @Override
     public String getErrorMsg() {
         return message;

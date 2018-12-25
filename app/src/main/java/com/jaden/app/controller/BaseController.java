@@ -2,7 +2,6 @@ package com.jaden.app.controller;
 
 import com.jaden.common.exception.BizException;
 import com.jaden.common.result.ResultData;
-import com.jaden.common.result.ResultError;
 import com.jaden.common.result.ResultStateEnum;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,13 +14,13 @@ public class BaseController {
 
     @ExceptionHandler
     public ResultData exceptionHandler(Exception e){
-        e.printStackTrace();
         ResultData resultData = new ResultData();
         resultData.setStatus("failed");
         if (e instanceof BizException){
             BizException be = (BizException)e;
             resultData.setData(be);
         }else {
+            e.printStackTrace();
             resultData.setData(new BizException(ResultStateEnum.UNKNOWN_ERROR));
         }
         return resultData;

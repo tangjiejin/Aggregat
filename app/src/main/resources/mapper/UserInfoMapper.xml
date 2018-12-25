@@ -35,7 +35,7 @@
       #{birthday,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jaden.common.pojo.UserInfo">
+  <insert id="insertSelective" parameterType="com.jaden.common.pojo.UserInfo" keyProperty="id" useGeneratedKeys="true">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

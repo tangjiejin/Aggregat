@@ -1,18 +1,20 @@
 package com.jaden.app.controller;
 
-import com.jaden.app.beans.UserInfoExt;
 import com.jaden.app.service.UserService;
 import com.jaden.common.exception.BizException;
 import com.jaden.common.pojo.UserInfo;
 import com.jaden.common.result.ResultData;
 import com.jaden.common.result.ResultStateEnum;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.SocketTimeoutException;
 
 /**
  * Created by tangjiejin on 2018/11/21
@@ -26,31 +28,53 @@ public class UserController extends BaseController{
     @Autowired
     HttpServletRequest request;
 
+    /**
+     * 用户登录
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/user/login")
-    public ResultData login(UserInfoExt userInfoExt) throws Exception {
-        String otp = userInfoExt.getOtp();
-        String sessionOtp = (String)request.getSession().getAttribute(userInfoExt.getPhone());
-        if (otp == null || userInfoExt.getName() == null || userInfoExt.getPassword() == null){
-            return ResultData.retFailed(new BizException(ResultStateEnum.PARAMETER_ERROR));
-        }else if (!otp.equals(sessionOtp)){
-            return ResultData.retFailed(new BizException(ResultStateEnum.PARAMETER_ERROR,"验证码不正确"));
-        }
+    public ResultData login(String phone,String password) throws BizException {
 
-        UserInfo userInfo = userService.login(userInfoExt);
+        if (StringUtils.isBlank(phone) || StringUtils.isBlank(password)){
+            throw new BizException(ResultStateEnum.PARAMETER_ERROR);
+        }
+        UserInfo userInfo = userService.login(phone,password);
         return ResultData.retSuccess(userInfo);
     }
 
+    /**
+     * 获取验证码
+     * @param phone
+     * @return
+     * @throws Exception
+     */
     @GetMapping("/user/getOtp")
     public ResultData getOtp(String phone) throws Exception {
-        String message = "";
         if (phone == null || phone.trim().length() <= 0){
-            return ResultData.retFailed(new BizException(ResultStateEnum.PARAMETER_ERROR,"手机号不能为空"));
+            throw new BizException(ResultStateEnum.PARAMETER_ERROR,"手机号不能为空");
         }
-        int otp = RandomUtils.nextInt(99999);
-        otp = otp + 10000;
+        int otp = RandomUtils.nextInt(9999);
+        otp = otp < 1000 ? otp + 1000 : otp;
         request.getSession().setAttribute(phone,String.valueOf(otp));
         System.out.println("手机号：" + phone + ",验证码：" + otp);
         return ResultData.retSuccess("验证码已发送，请注意查收！");
+    }
+
+
+    @PostMapping("/user/register")
+    public ResultData register(UserInfo userInfo) throws BizException {
+        if (StringUtils.isBlank(userInfo.getName())
+                || StringUtils.isBlank(userInfo.getPassword())
+                || StringUtils.isBlank(userInfo.getPhone())){
+            throw new BizException(ResultStateEnum.PARAMETER_ERROR,"注册参数异常");
+        }
+        String sessionOtp = (String)request.getSession().getAttribute(userInfo.getPhone());
+        if (!StringUtils.equals(sessionOtp,userInfo.getOtp())){
+            throw new BizException(ResultStateEnum.PARAMETER_ERROR,"验证码错误");
+        }
+
+        return userService.register(userInfo);
     }
 
 

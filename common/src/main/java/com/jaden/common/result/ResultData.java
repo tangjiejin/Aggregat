@@ -18,6 +18,7 @@ public class ResultData {
 
     public ResultData() {}
 
+
     public ResultData(String status, Object data) {
         this.status = status;
         this.data = data;
@@ -26,11 +27,6 @@ public class ResultData {
     public static ResultData retSuccess(Object data) {
 
         return new ResultData("success", data);
-    }
-
-    public static ResultData retFailed(ResultError error) {
-
-        return new ResultData("failed", error);
     }
 
     public String getStatus() {
