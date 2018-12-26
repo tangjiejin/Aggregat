@@ -11,11 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @MapperScan("com.jaden.app.mapper")
 public class AppApplication {
 
-    @GetMapping("/")
-    public String index(){
-        return "static/index.html";
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
