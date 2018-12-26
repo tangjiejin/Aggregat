@@ -14,16 +14,16 @@
                 <form>
                     <a href="login.html" style="color: red">有账户，去登录 >>> </a>
                     <div class="userName">
-                        <input type="text" id="name" name="name" placeholder="用户名"><em>由5-8个字符组成！</em>
+                        <input type="text" id="name" name="name" placeholder="用户名"><em>由3-8个字符组成</em>
                     </div>
                     <div class="text">
-                        <input type="text" id="phone" name="phone" placeholder="手机号"><em>由11个字符组成！</em>
+                        <input type="text" id="phone" name="phone" placeholder="手机号"><em>由11个字符组成</em>
                     </div>
                     <div class="password">
-                        <input type="password" id="password" name="password" placeholder="密码"><em>使用字母、数字、符号两种及以上的组合，8-12个字符</em>
+                        <input type="password" id="password" name="password" placeholder="密码"><em>使用任意字符组合3-10位</em>
                     </div>
                     <div class="againpwd">
-                        <input type="password" id="rePassword" name="rePassword" placeholder="再次输入密码"><em>两次密码不一致</em>
+                        <input type="password" id="rePassword" name="rePassword" placeholder="再次输入密码">
                     </div>
 
                     <div class="text">
@@ -71,6 +71,7 @@
         var rePassword = $("#rePassword").val();
         if (password != rePassword){
             alert("两次密码不一致")
+            return;
         }
 
         $.ajax({

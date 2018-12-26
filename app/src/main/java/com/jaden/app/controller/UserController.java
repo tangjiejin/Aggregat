@@ -1,6 +1,9 @@
 package com.jaden.app.controller;
 
+import com.jaden.app.models.UserInfoModel;
 import com.jaden.app.service.UserService;
+import com.jaden.app.validator.ValidationResult;
+import com.jaden.app.validator.ValidatorImpl;
 import com.jaden.common.exception.BizException;
 import com.jaden.common.pojo.UserInfo;
 import com.jaden.common.result.ResultData;
@@ -61,20 +64,20 @@ public class UserController extends BaseController{
         return ResultData.retSuccess("验证码已发送，请注意查收！");
     }
 
-
+    /**
+     * 用户注册
+     * @param userModel
+     * @return
+     * @throws BizException
+     */
     @PostMapping("/user/register")
-    public ResultData register(UserInfo userInfo) throws BizException {
-        if (StringUtils.isBlank(userInfo.getName())
-                || StringUtils.isBlank(userInfo.getPassword())
-                || StringUtils.isBlank(userInfo.getPhone())){
-            throw new BizException(ResultStateEnum.PARAMETER_ERROR,"注册参数异常");
-        }
-        String sessionOtp = (String)request.getSession().getAttribute(userInfo.getPhone());
-        if (!StringUtils.equals(sessionOtp,userInfo.getOtp())){
+    public ResultData register(UserInfoModel userModel) throws BizException {
+        validatePropertes(userModel);
+        String sessionOtp = (String)request.getSession().getAttribute(userModel.getPhone());
+        if (!StringUtils.equals(sessionOtp,userModel.getOtp())){
             throw new BizException(ResultStateEnum.PARAMETER_ERROR,"验证码错误");
         }
-
-        return userService.register(userInfo);
+        return userService.register(userModel);
     }
 
 

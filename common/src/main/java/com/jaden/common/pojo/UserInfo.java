@@ -24,5 +24,4 @@ public class UserInfo {
 
     private Byte gender;
 
-    private String otp;
 }
