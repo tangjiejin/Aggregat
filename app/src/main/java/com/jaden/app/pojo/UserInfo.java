@@ -1,4 +1,4 @@
-package com.jaden.common.pojo;
+package com.jaden.app.pojo;
 
 import lombok.Data;
 

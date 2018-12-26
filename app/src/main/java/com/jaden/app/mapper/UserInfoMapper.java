@@ -1,8 +1,10 @@
 package com.jaden.app.mapper;
 
-import com.jaden.common.pojo.UserInfo;
+import com.jaden.app.pojo.UserInfo;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserInfoMapper {
+
     int deleteByPrimaryKey(Long id);
 
     int insert(UserInfo record);
@@ -14,4 +16,8 @@ public interface UserInfoMapper {
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKey(UserInfo record);
+
+    UserInfo login(@Param("phone") String phone, @Param("password") String password);
+
+    UserInfo selectByPhone(String phone);
 }

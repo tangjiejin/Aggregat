@@ -21,7 +21,7 @@
         </javaTypeResolver>
 
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.jaden.common.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.jaden.app.pojo" targetProject="src/main/java">
             <!--是否对model添加构造函数-->
             <property name="constructorBased" value="false"/>
             <!--是否允许子包-->
@@ -42,11 +42,23 @@
         </javaClientGenerator>
 
         <!--生成与表对应的类名-->
-        <table tableName="user_info" domainObjectName="UserInfo"
-               enableInsert="true" enableSelectByExample="false"
-               enableDeleteByPrimaryKey="true" enableDeleteByExample="false"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>
+        <!--<table tableName="user_info" domainObjectName="UserInfo"-->
+               <!--enableInsert="true" enableSelectByExample="false"-->
+               <!--enableDeleteByPrimaryKey="true" enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>-->
+
+        <!--<table tableName="goods_item" domainObjectName="GoodsItem"-->
+               <!--enableInsert="true" enableSelectByExample="false"-->
+               <!--enableDeleteByPrimaryKey="true" enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>-->
+
+        <!--<table tableName="goods_stock" domainObjectName="GoodsStock"-->
+               <!--enableInsert="true" enableSelectByExample="false"-->
+               <!--enableDeleteByPrimaryKey="true" enableDeleteByExample="false"-->
+               <!--enableCountByExample="false" enableUpdateByExample="false"-->
+               <!--enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true"/>-->
 
     </context>
 

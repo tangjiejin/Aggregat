@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jaden.app.mapper.UserInfoMapper">
-  <resultMap id="BaseResultMap" type="com.jaden.common.pojo.UserInfo">
+  <resultMap id="BaseResultMap" type="com.jaden.app.pojo.UserInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
@@ -25,7 +25,7 @@
     delete from user_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jaden.common.pojo.UserInfo">
+  <insert id="insert" parameterType="com.jaden.app.pojo.UserInfo">
     insert into user_info (id, name, phone, 
       create_time, state, password, 
       birthday, photo, gender
@@ -35,7 +35,7 @@
       #{birthday,jdbcType=TIMESTAMP}, #{photo,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jaden.common.pojo.UserInfo" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.jaden.app.pojo.UserInfo" keyProperty="id" useGeneratedKeys="true">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -96,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jaden.common.pojo.UserInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.jaden.app.pojo.UserInfo">
     update user_info
     <set>
       <if test="name != null">
@@ -126,7 +126,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jaden.common.pojo.UserInfo">
+  <update id="updateByPrimaryKey" parameterType="com.jaden.app.pojo.UserInfo">
     update user_info
     set name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -138,4 +138,12 @@
       gender = #{gender,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="login" resultType="com.jaden.app.pojo.UserInfo">
+      select * from user_info where phone = #{phone} and password = #{password}
+    </select>
+
+  <select id="selectByPhone" parameterType="string" resultType="com.jaden.app.pojo.UserInfo">
+      select * from user_info where phone = #{phone}
+    </select>
 </mapper>

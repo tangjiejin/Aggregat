@@ -1,20 +1,16 @@
 package com.jaden.app.controller;
 
-import com.jaden.app.models.UserInfoModel;
+import com.jaden.app.models.UserModel;
 import com.jaden.app.service.UserService;
-import com.jaden.app.validator.ValidationResult;
-import com.jaden.app.validator.ValidatorImpl;
 import com.jaden.common.exception.BizException;
-import com.jaden.common.pojo.UserInfo;
+import com.jaden.app.pojo.UserInfo;
 import com.jaden.common.result.ResultData;
 import com.jaden.common.result.ResultStateEnum;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -71,7 +67,7 @@ public class UserController extends BaseController{
      * @throws BizException
      */
     @PostMapping("/user/register")
-    public ResultData register(UserInfoModel userModel) throws BizException {
+    public ResultData register(UserModel userModel) throws BizException {
         validatePropertes(userModel);
         String sessionOtp = (String)request.getSession().getAttribute(userModel.getPhone());
         if (!StringUtils.equals(sessionOtp,userModel.getOtp())){

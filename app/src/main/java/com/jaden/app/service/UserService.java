@@ -1,9 +1,9 @@
 package com.jaden.app.service;
 
-import com.jaden.app.mapper.UserInfoManualMapper;
-import com.jaden.app.models.UserInfoModel;
+import com.jaden.app.mapper.UserInfoMapper;
+import com.jaden.app.models.UserModel;
 import com.jaden.common.exception.BizException;
-import com.jaden.common.pojo.UserInfo;
+import com.jaden.app.pojo.UserInfo;
 import com.jaden.common.result.ResultData;
 import com.jaden.common.result.ResultStateEnum;
 import org.springframework.beans.BeanUtils;
@@ -18,20 +18,20 @@ import javax.annotation.Resource;
 public class UserService {
 
     @Resource
-    UserInfoManualMapper userInfoManualMapper;
+    UserInfoMapper userInfoMapper;
 
     public UserInfo login(String phone, String password) {
-        return userInfoManualMapper.login(phone,password);
+        return userInfoMapper.login(phone,password);
     }
 
-    public ResultData register(UserInfoModel userModel) throws BizException {
-        UserInfo existUser =  userInfoManualMapper.selectByPhone(userModel.getPhone());
+    public ResultData register(UserModel userModel) throws BizException {
+        UserInfo existUser =  userInfoMapper.selectByPhone(userModel.getPhone());
         if (existUser != null){
             throw new BizException(ResultStateEnum.PARAMETER_ERROR,"用户已存在");
         }
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(userModel,userInfo);
-        userInfoManualMapper.insertSelective(userInfo);
+        userInfoMapper.insertSelective(userInfo);
         return ResultData.retSuccess("注册成功");
     }
 }

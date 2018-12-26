@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by tangjiejin on 2018/12/26
  */
 @Data
-public class UserInfoModel {
+public class UserModel {
 
     private Long id;
 

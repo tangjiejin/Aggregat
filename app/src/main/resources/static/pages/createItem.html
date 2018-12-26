@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品创建页</title>
+    <link rel="stylesheet" type="text/css" href="css/regist.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <article>
+            <h1><em>Logo</em><span>某某淘宝店</span></h1>
+            <div class="main">
+                <form>
+                    <div class="text">
+                        <input type="text" id="title" name="title" placeholder="标题"><em>200字以内</em>
+                    </div>
+                    <div class="text">
+                        <input type="text" id="price" name="price" placeholder="价格"><em>不得小于0元</em>
+                    </div>
+                    <div class="text">
+                        <input type="text" id="stock" name="stock" placeholder="库存"><em>不得小于0件</em>
+                    </div>
+                    <div class="text">
+                        <input type="text" id="description" name="description" placeholder="描述"><em>500字以内</em>
+                    </div>
+                    <div class="text">
+                        <input type="text" id="imgUrl" name="imgUrl" placeholder="图片">
+                    </div>
+
+                    <button type="button" onclick="createItem()">创建商品</button>
+                </form>
+            </div>
+        </article>
+        <footer>
+            <ul>
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#">关于我们</a></li>
+                <li><a href="#">人才招聘</a></li>
+                <li><a href="#">友情链接</a></li>
+                <li><a href="#">公司地址</a></li>
+                <li><a href="#">关注我们</a></li>
+            </ul>
+        </footer>
+    </div>
+</body>
+<script>
+
+    function createItem() {
+        var title = $("#title").val();
+        var price = $("#price").val();
+        var stock = $("#stock").val();
+        var description = $("#description").val();
+        var imgUrl = $("#imgUrl").val();
+
+        $.ajax({
+            url:"/goods/createItem",
+            data:{"title":title,"price":price,"stock":stock,"description":description,"imgUrl":imgUrl},
+            type:"POST",
+            success:function (data) {
+                if (data.status == "success") {
+                    window.location.href = data.data.imgUrl;
+                } else {
+                    alert(data.data.errorMsg);
+                }
+            }
+        });
+    }
+</script>
+</html>
